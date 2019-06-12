@@ -39,11 +39,44 @@ for i = 1, #vetor do
 	print(vetor[i])
 end
 --]]
-
-function crivo()
-	vetor = {2}
-	for i = 1, 50 do
-		
+--[[
+function crivo(limite)
+	primos = {}
+	primos[2] = true
+	for i = 2, math.floor(math.sqrt(limite)) do
+		for j = 2, #primos do
+			for k = 2, limite do
+				if k % j == 0 then
+					primos[k] = false
+				else
+					primos[k] = true
+				end
+			end
+			if #primos == i then break end
+		end
 	end
-	return vetor
+	resultado = {}
+	for i = 2, #primos do
+		if primos[i] then
+			resultado[i] = i
+		end
+	end
+	return resultado
+end
+--]]
+
+function crivo(limite)
+	resultado = {2}
+	primos = {true, false, true}
+	for i = 3, limite do
+		if primos[i] then resultado[i] = i - 1 end
+	end
+	return resultado
+end
+
+
+numero = io.read("*n")
+primos = crivo(numero)
+for i = 1, #primos do
+	print(primos[i])
 end
